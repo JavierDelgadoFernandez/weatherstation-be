@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="inner cover">
+    <h1 class="cover-heading">Last measure</h1>
+    <table class="table">
+        <tr>
+            <td><h4>Temperature</h4></td>
+            <td><h4>{{ temperature }}</h4></td>
+        </tr>
+        <tr>
+            <td>Pressure</td>
+            <td>{{ pressure }}</td>
+        </tr>
+        <tr>
+            <td>Humidity</td>
+            <td>{{ humidity }}</td>
+        </tr>
+        <tr>
+            <td>Date</td>
+            <td>{{ date }}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

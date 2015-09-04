@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load staticfiles %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cover Template for Bootstrap</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static "css/cover.css" %}"/>
+</head>
+
+<body>
+
+<div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand">WeatherStation</h3>
+                    <nav>
+                        <ul class="nav masthead-nav">
+                            <li class="active"><a href="#">Home</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            {% block content %} Content {% endblock %}
+
+            <div class="mastfoot">
+                <div class="inner">
+                    <p>WeatherStation</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
