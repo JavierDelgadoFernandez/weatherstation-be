@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from home.models import Measure
 from datetime import datetime, timedelta
+from django.utils.timezone import utc
 
 
 @api_view(['POST'])
@@ -18,7 +19,7 @@ def add_measure(request):
 def get_dates(measures):
 	result = []
 	
-	epoch = datetime.utcfromtimestamp(0)
+	epoch = datetime.utcfromtimestamp(0).replace(tzinfo=utc)
 	for measure in measures:
 		delta = measure.date - epoch
 		result.append((delta.microseconds + (delta.seconds + delta.days * 24 * 3600) * 10**6) / 10**6)
@@ -70,18 +71,10 @@ def get_pressures(measures):
 	
 	return result
 
-def step_filter(measures, step):
-	result = []
-	for i in range(len(measures)):
-		if i % step == 0:
-			result.append(measures[i])
-	return result
-
 @api_view(['GET'])
 def lastday(request):
 	date_yesterday = datetime.utcnow() - timedelta(days=1)
-	measures = Measure.objects.filter(date__lte=date_yesterday)
-	measures = step_filter(measures, len(measures)/1000)
+	measures = Measure.objects.filter(date__gte=date_yesterday)
 	response = {}
 	response['xData'] = get_dates(measures)
 	dataset = []
