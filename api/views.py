@@ -18,8 +18,10 @@ def add_measure(request):
 def get_dates(measures):
 	result = []
 	
+	epoch = datetime.utcfromtimestamp(0)
 	for measure in measures:
-		result.append(measure.date.strftime('%Y-%m-%dT%H:%M:%S'))
+		delta = measure.date - epoch
+		result.append((delta.microseconds + (delta.seconds + delta.days * 24 * 3600) * 10**6) / 10**6)
 	
 	return result
 
@@ -68,10 +70,18 @@ def get_pressures(measures):
 	
 	return result
 
+def step_filter(measures, step):
+	result = []
+	for i in range(len(measures)):
+		if i % step == 0:
+			result.append(measures[i])
+	return result
+
 @api_view(['GET'])
 def lastday(request):
 	date_yesterday = datetime.utcnow() - timedelta(days=1)
 	measures = Measure.objects.filter(date__lte=date_yesterday)
+	measures = step_filter(measures, len(measures)/1000)
 	response = {}
 	response['xData'] = get_dates(measures)
 	dataset = []
