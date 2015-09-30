@@ -1,2 +1,4 @@
 *.pyc
 */migrations/*
+*.kdev4
+*.db

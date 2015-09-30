@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{% load staticfiles %}
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cover Template for Bootstrap</title>
+    <title>WeatherStation</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static "css/cover.css" %}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cover.css') }}">
 </head>
 
 <body>
@@ -24,8 +22,7 @@
                     <h3 class="masthead-brand">WeatherStation</h3>
                     <nav>
                         <ul class="nav masthead-nav">
-                            <li class="active"><a href="{% url 'home:home' %}">Home</a></li>
-                            <li class="active"><a href="{% url 'charts:home' %}">Charts</a></li>
+                            <li class="active"><a href="/home">Home</a></li>
                         </ul>
                     </nav>
                 </div>
