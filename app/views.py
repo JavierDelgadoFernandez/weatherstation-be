@@ -25,13 +25,14 @@ def home():
 @app.route('/last_day', methods=['GET'])
 def chart():
 	yesterday = datetime.now() - timedelta(days=1)
-	measures = Measure.query.filter(Measure.date > yesterday).all()
+	measures = Measure.query.filter(Measure.date > yesterday).order_by(Measure.date).all()
 	if (len(measures) > 0):
 		temperatures = map(lambda measure : [ datetime_epoch(measure.date), measure.temperature ], measures)
 		pressures = map(lambda measure : [ datetime_epoch(measure.date), measure.pressure ], measures)
-		humidities = map(lambda measure : [ datetime_epoch(measure.date), measure.humidity ], measures)
+		humidities = map(lambda measure : [ datetime_epoch(measure.date), get_value_or_default(measure.humidity) ], measures)
 		return render_template('chart.html', temperatures=temperatures, pressures=pressures, humidities=humidities)
 	return render_template('chart.html')
+
 
 @app.route('/about', methods=['GET'])
 def about():
@@ -56,6 +57,10 @@ def add_measure():
 	db.session.commit()
 	return jsonify({'result': True}), 201
 
+def get_value_or_default(value):
+	if value == None:
+		return 1
+	return value
 
 def datetime_epoch(dt):
 	epoch = datetime.utcfromtimestamp(0)
