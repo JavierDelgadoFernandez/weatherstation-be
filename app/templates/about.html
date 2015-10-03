@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h3>Location:</h3>
+    <iframe style="min-width: 310px; height: 400px; margin: 0 auto; border: 1px solid black; width: 100%;" frameborder="0" scrolling="no"
+            src="http://www.openstreetmap.org/export/embed.html?bbox=-4.2036%2C43.309628%2C-4.18042%2C43.32347&layer=mapnik&marker=43.31655%2C-4.19201"></iframe>
+    <h3>About the project:</h3>
+    <p>This project aims to achive a weather station with forecasting. At present, it is only recording weather evolution.
+       It consists in a Raspberry Pi B with several sensors connected to its GPIO thanks to I2C, SPI and 1-Wire protocols.
+       The data are sent to this Flask application using a REST service.
+    </p>
+</div>
+{% endblock %}

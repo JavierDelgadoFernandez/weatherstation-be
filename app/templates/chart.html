@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Last day evolution:</h2>
+    <div id="chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>    
+    
+    <script>
+        $(function () {
+            $('chart').highcharts({
+                chart: {
+                    backgroundColor: null,
+                    type: 'spline',
+                    zoomType: 'x'
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    type: 'datetime'
+                },
+                yAxis: [{
+                    min: 0,
+                    max: 100,
+                    title: {
+                        text: 'Humidity (%)'
+                    }
+                }, {
+                    title: {
+                        text: 'Pressure (hPa)'
+                    }
+                }, {
+                    title: {
+                        text: 'Temperature (ºC)'
+                    }
+                }],
+                tooltip: {
+                    shared: true,
+                    valueDecimals: 2
+                },
+                series: [{
+                    name: 'Humidity',
+                    yAxis: 0,
+                    color: '#01A9DB',
+                    data: {{ humidities }}
+                }, {
+                    name: 'Pressure',
+                    yAxis: 1,
+                    color: '#2E2E2E',
+                    data: {{ pressures}}
+                }, {
+                    name: 'Temperature',
+                    yAxis: 2,
+                    color: '#B40404',
+                    data: {{ temperatures }}
+                }]
+            });
+        });
+    </script>
+</div>
+{% endblock %}
