@@ -12,27 +12,29 @@
 ;  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (ns weatherstation.services.measure
-  (:use korma.core)
-  (:require [weatherstation.entities :as e]))
+  (:require [korma.core :as o]
+            [weatherstation.entities :as e]
+            ))
 
 (defn find-last []
-  (select e/measure
-    (order :epoch :DESC)
-    (limit 1)))
+  (o/select e/measure
+    (o/order :epoch :DESC)
+    (o/limit 1)))
 
 (defn find-to [to]
-  (select e/measure
-    (where {:epoch [< to]})))
+  (o/select e/measure
+    (o/where {:epoch [< to]})))
 
 (defn find-from [from]
-  (select e/measure
-    (where {:epoch [> from]})))
+  (o/select e/measure
+    (o/where {:epoch [> from]})))
 
 (defn find-from-to [from to]
-  (select e/measure
-    (where (and {:epoch [> from]}
-                {:epoch [< to]}))))
+  (o/select e/measure
+    (o/where (and {:epoch [> from]}
+                  {:epoch [< to]}))))
 
 (defn create [measure]
-  (insert e/measure
-    (values measure)))
+  (o/insert e/measure
+    (o/values
+      (update measure :epoch (fn [e] (or e (System/currentTimeMillis)))))))
