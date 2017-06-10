@@ -15,7 +15,7 @@
 
 CREATE TABLE measure (
     id          serial PRIMARY KEY,
-    epoch       bigint,
+    epoch       bigint NOT NULL,
     humidity    double precision NOT NULL,
     pressure    double precision NOT NULL,
     temperature double precision NOT NULL

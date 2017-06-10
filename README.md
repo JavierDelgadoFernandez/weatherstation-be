@@ -2,9 +2,22 @@
 WeatherStation backend with GraphQL goodies.
 
 ## Running the server
-Once the repository is cloned (``git clone https://github.com/javierdelgadofernandez/weatherstation``), run the next command that will start the web server on port ``3002`` using a Postgres database (check ``db.clj`` to see details):
+Once the repository is cloned (``git clone https://github.com/javierdelgadofernandez/weatherstation``), you can either run directly on your machine (requires [lein](https://leiningen.org) installed) or run it with Docker. In both cases, it will require a PostgreSQL dababase (check ``db.clj`` to see details) running in the host. The server will start on port ``3002``.
+
+### With lein
+Using ``liningen`` we will need only one command that will download the libraries and run the server:
 ```sh
 lein ring server-headless   
+```
+
+### With Docker
+Simply build the container:
+```sh
+docker build -t weatherstation-be .
+```
+And run it:
+```sh
+docker run --network=host weatherstation-be
 ```
 
 ## Creating some data

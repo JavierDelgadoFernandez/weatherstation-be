@@ -12,6 +12,7 @@
                  [ring/ring-defaults "0.3.0"]
                  [ring/ring-jetty-adapter "1.6.1"]
                  [ring/ring-json "0.4.0"]]
+  :uberjar-name "weatherstation-standalone.jar"
   :plugins [[lein-ring "0.9.7"]]
   :ring {:handler weatherstation.handler/app
          :auto-reload? true
