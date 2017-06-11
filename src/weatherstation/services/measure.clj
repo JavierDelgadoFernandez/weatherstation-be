@@ -37,4 +37,5 @@
 (defn create [measure]
   (o/insert e/measure
     (o/values
-      (update measure :epoch (fn [e] (or e (System/currentTimeMillis)))))))
+      (update (dissoc measure :date)
+        :epoch (fn [e] (or e (System/currentTimeMillis)))))))
