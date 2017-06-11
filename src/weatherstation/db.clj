@@ -14,9 +14,9 @@
 (ns weatherstation.db
   (:use korma.db))
 
-(defdb db (postgres {:host "localhost"
-                     :port 5432
-                     :db "weatherstation"
-                     :user "postgres"
-                     :password "postgres"
+(defdb db (postgres {:host (or (System/getenv "DB_HOST") "localhost")
+                     :port (or (System/getenv "DB_PORT") 5432)
+                     :db (or (System/getenv "DB_NAME") "weatherstation")
+                     :user (or (System/getenv "DB_USER") "postgres")
+                     :password (or (System/getenv "DB_PASSWORD") "postgres")
                      }))
