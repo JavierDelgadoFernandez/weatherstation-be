@@ -50,4 +50,4 @@
 
 (defn execute
   [query variables]
-  (executor/execute nil validated-schema starter-resolver-fn query (clojure.walk/stringify-keys variables)))
+  (executor/execute nil validated-schema starter-resolver-fn query variables))
